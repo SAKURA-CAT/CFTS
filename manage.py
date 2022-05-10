@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Django's command-line utility for administrative tasks."""
 import os
+import sys
 
 
 def main():
@@ -13,8 +14,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    # 修改以下格式实现django的相关操作
-    execute_from_command_line(['/opt/project/manage.py', 'startapp', 'transfer'])
+    # 修改pycharm内置参数实现manage的不同命令
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':

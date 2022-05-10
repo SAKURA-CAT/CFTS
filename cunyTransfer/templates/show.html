@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--favicon 页面标签图-->
+	<link rel="icon" href="/static/assets/images/cuny.png" type="image/png" />
+<!--plugins-->
+	<link href="/static/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="/static/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/static/assets/plugins/notifications/css/lobibox.min.css" />
+<!--loader 加载时的旋转框-->
+	<link href="/static/assets/css/pace.min.css" rel="stylesheet" />
+	<script src="/static/assets/js/pace.min.js"></script>
+<!-- Bootstrap CSS-->
+	<link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/assets/fonts/fonts.css" rel="stylesheet">
+	<link href="/static/assets/css/app.css" rel="stylesheet">
+	<link href="/static/assets/css/icons.css" rel="stylesheet">
+	<link href="/static/assets/plugins/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet"/>
+	<link href="/static/assets/css/bootstrap-table.css" rel="stylesheet"/>
+<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="/static/assets/css/header-colors.css" />
+<!--Bootstrap JS -->
+	<script src="/static/assets/js/jquery.min.js"></script>
+	<script src="/static/assets/js/bootstrap.min.js"></script>
+	<script src="/static/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="/static/assets/js/bootstrap.bundle.min.js"></script>
+<!--plugins-->
+	<script src="/static/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="/static/assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="/static/assets/plugins/chartjs/js/Chart.min.js"></script>
+<!--notification js -->
+	<script src="/static/assets/plugins/notifications/js/lobibox.min.js"></script>
+	<script src="/static/assets/plugins/notifications/js/notifications.min.js"></script>
+<!--app JS 用于渲染和自定义一些样式-->
+	<script src="/static/assets/js/app.js"></script>
+	<script src="/static/assets/js/bootstrap-table.js"></script>
+    <script src="/static/assets/plugins/reorder-rows/jquery.tablednd.js"></script>
+    <script src="/static/assets/plugins/reorder-rows/bootstrap-table-reorder-rows.js"></script>
+    <script src="/static/cunySet/show.js"></script>
+	<title>CFTS-Cuny's Transfer System</title>
+</head>
+<body>
+    <form id="hidden_form">
+        {% csrf_token %}
+        <input type="hidden" id="flag" name="flag">
+        <input type="hidden" id="country" name="country">
+        <input type="hidden" id="datatype" name="datatype">
+    </form>
+	<div class="wrapper">
+        <div class="container py-5">
+            <span class="mb-0" style="font-size:20px;color:black;">CFTS-文件传输系统</span><hr/>
+            <div class="card">
+                <div class="card-body">
+                    <ul id="navTabs" class="nav nav-tabs nav-primary" role="tablist">
+                        <li id="size_all" class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#index" role="tab" aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-icon"><i class='font-18 me-1'></i>
+                                    </div>
+                                    <div class="tab-title">全部文件</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="navTabs-content"  class="tab-content py-3">
+                        <div class="tab-pane fade show active" id="index" role="tabpanel">
+                            <div class="d-lg-flex align-items-center mb-4 gap-3">
+        <!--                    搜索框-->
+                                <div class="position-relative">
+                                    <div class="input-group">
+                                        <label>
+                                            <input id="size_name" type="text" class="form-control ps-5" placeholder="搜索您想要找的文件名称(全称搜索)" oninput="searchFile()" onclick="searchFIle()">
+                                            <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
+                                        </label>
+                                        <button class="btn btn-primary" id="clear" onclick="clearSearch()">清空搜索</button>
+                                    </div>
+                                </div>
+        <!--                    上传文件按钮-->
+                                <div class="ms-auto">
+                                    <div class="btn-group">
+                                        <a id="addSize"  class="btn btn-primary radius-30 mt-2 mt-lg-0 px-3" onclick="uploadFile();">
+                                            <i class="bx bxs-plus-square"></i>
+                                            上传文件
+                                        </a>
+                                        <a id="comfirmUpdate"  class="btn btn-primary radius-30 mt-2 mt-lg-0 px-3" onclick="findFile('列表更新成功');">
+                                            <i class="bx bx-refresh"></i>
+                                            更新列表
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+        <!--                交互式表单-->
+                            <div class="table-responsive">
+                                <table id="table" class="table mb-0">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center">#id</th>
+                                        <th class="text-center">文件名称</th>
+                                        <th class="text-center">文件类型</th>
+                                        <th class="text-center">文件大小</th>
+                                        <th class="text-center">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="page-footer" style="left: 0; right: 0;">
+			<div class="d-flex align-items-center justify-content-between flex-wrap">
+                <p class="mb-0">Copyright © 2021. All right reserved.</p>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>

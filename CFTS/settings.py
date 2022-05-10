@@ -54,7 +54,7 @@ ROOT_URLCONF = 'CFTS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'cunyTransfer/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,6 +113,7 @@ USE_L10N = True
 
 USE_TZ = False
 
+STATIC_URL = '/static/'
 if DEBUG:  # 开发环境DEBUG=True
     STATICFILES_DIRS = ['static', ]
 else:  # 部署环境DEBUG=False
@@ -121,4 +122,4 @@ else:  # 部署环境DEBUG=False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

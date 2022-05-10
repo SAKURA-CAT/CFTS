@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传文件</title>
+</head>
+
+<body>
+    <h1>文件上传示例</h1>
+    <div>
+        <input id="file1" type="file" name="file" accept="*">
+        <input type="button" value="上传" onclick="onUpload()">
+    </div>
+
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script>
+        function onUpload() {
+            var formData = new FormData();
+            // 获取文件
+            var fileData = $("#file1").prop("files")[0];
+            formData.append("file", fileData);
+            $.ajax({
+                url: '/cunyTransfer/getFile',
+                type: 'POST',
+                async: false,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
